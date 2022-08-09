@@ -1,0 +1,13 @@
+{
+  "name": "daily-of-slave-for-pets-server",
+  "description": "A node.js project",
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18"
+  }
+}
