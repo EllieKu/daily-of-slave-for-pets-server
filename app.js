@@ -1,13 +1,12 @@
 const http = require('http');
+const PORT = process.env.PORT || 5000;
 
-// const hostname = '127.0.0.1';
-const port = 3000;
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.end('hello'); // must be called on each response
 });
 
-server.listen(port, () => {
-  console.log(`Listening on ${ port }`)
+server.listen(PORT, () => {
+  console.log(`Listening on ${ PORT }`)
 });
