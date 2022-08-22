@@ -1,13 +1,19 @@
 {
   "name": "daily-of-slave-for-pets-server",
   "description": "A node.js project",
+  "main": "src/index.js",
   "engines": {
     "node": "16.x"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "devDependencies": {
-    "nodemon": "^2.0.18"
+    "nodemon": "^2.0.19"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "firebase-admin": "^11.0.1"
   }
 }
