@@ -1,10 +1,27 @@
 const express = require('express')
+const cors = require('cors')
 const { db } = require('./firebase/firebase')
+const { response } = require('express')
 
 const router = express.Router()
 router.use(express.json())
 
-router.get('/:petName', async(req, res) => {
+const corsOptions = {
+  origin: true,
+}
+
+router.get('/:user', cors(corsOptions), async(req, res) => {
+  const { user } = req.params
+  const documentRef = await db.collection('slave').doc(user)
+  documentRef.get().then(response => {
+    const data = response.data()
+    console.log(data)
+    res.send(data.pets)
+  })
+  
+})
+
+router.get('/:user/:petName', cors(corsOptions), async(req, res) => {
   const { petName } = req.params
   const collectionRef = await db.collection('pet').doc(petName).collection('record')
   collectionRef.get().then(documents => {
@@ -19,7 +36,7 @@ router.get('/:petName', async(req, res) => {
   })
 })
 
-router.post('/:petName', async(req, res) => {
+router.post('/:user/:petName', async(req, res) => {
   const { petName } = req.params
   const collectionRef = await db.collection('pet').doc(petName).collection('record')
   collectionRef.add(req.body).then(doc => {
@@ -30,7 +47,7 @@ router.post('/:petName', async(req, res) => {
   })
 })
 
-router.put('/:petName/:id', async(req, res) => {
+router.put('/:user/:petName/:id', async(req, res) => {
   const { petName, id } = req.params
   const collectionRef = await db.collection('pet').doc(petName).collection('record')
   collectionRef.doc(id).update(req.body).then(() =>{
@@ -41,7 +58,7 @@ router.put('/:petName/:id', async(req, res) => {
   })
 })
 
-router.delete('/:petName/:id', async(req, res) => {
+router.delete('/:user/:petName/:id', async(req, res) => {
   const { petName, id } = req.params
   const collectionRef = await db.collection('pet').doc(petName).collection('record')
   collectionRef.doc(id).delete().then(() => {
