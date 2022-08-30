@@ -6,8 +6,11 @@ const { response } = require('express')
 const router = express.Router()
 router.use(express.json())
 
+const corsOptions = {
+  credentials: true
+}
 
-router.get('/:user', cors(), async(req, res) => {
+router.get('/:user', cors(corsOptions), async(req, res) => {
   const { user } = req.params
   const documentRef = await db.collection('slave').doc(user)
   documentRef.get().then(response => {
@@ -18,7 +21,7 @@ router.get('/:user', cors(), async(req, res) => {
   
 })
 
-router.get('/:user/:petName', cors(), async(req, res) => {
+router.get('/:user/:petName', cors(corsOptions), async(req, res) => {
   const { petName } = req.params
   const collectionRef = await db.collection('pet').doc(petName).collection('record')
   collectionRef.get().then(documents => {
@@ -33,7 +36,7 @@ router.get('/:user/:petName', cors(), async(req, res) => {
   })
 })
 
-router.post('/:user/:petName', cors(), async(req, res) => {
+router.post('/:user/:petName', cors(corsOptions), async(req, res) => {
   const { petName } = req.params
   const collectionRef = await db.collection('pet').doc(petName).collection('record')
   collectionRef.add(req.body).then(doc => {
@@ -44,7 +47,7 @@ router.post('/:user/:petName', cors(), async(req, res) => {
   })
 })
 
-router.put('/:user/:petName/:id', cors(), async(req, res) => {
+router.put('/:user/:petName/:id', cors(corsOptions), async(req, res) => {
   const { petName, id } = req.params
   const collectionRef = await db.collection('pet').doc(petName).collection('record')
   collectionRef.doc(id).update(req.body).then(() =>{
@@ -55,7 +58,7 @@ router.put('/:user/:petName/:id', cors(), async(req, res) => {
   })
 })
 
-router.delete('/:user/:petName/:id', cors(), async(req, res) => {
+router.delete('/:user/:petName/:id', cors(corsOptions), async(req, res) => {
   const { petName, id } = req.params
   const collectionRef = await db.collection('pet').doc(petName).collection('record')
   collectionRef.doc(id).delete().then(() => {
