@@ -7,7 +7,7 @@ const router = express.Router()
 router.use(express.json())
 
 const corsOptions = {
-  origin: "*",
+  origin: true,
   methods: "GET,PUT,POST,DELETE",
   allowedHeaders: ['Content-Type', 'application/json'],
   credentials: true
