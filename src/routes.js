@@ -8,6 +8,7 @@ router.use(express.json())
 
 const corsOptions = {
   origin: "*",
+  methods: "GET,PUT,POST,DELETE",
   credentials: true
 }
 
